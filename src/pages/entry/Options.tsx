@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import { IceItemProps } from "../../types/props";
 import ScoopOption from "./ScoopOptions";
+import ToppingOption from "./ToppingOption";
 
 interface OptionsProps {
   optionType: "scoops" | "toppings";
@@ -21,7 +22,7 @@ export default function Options(props: OptionsProps) {
   }, [optionType]);
 
   //TODO replace null with ToppingOption
-  const ItemComponent = optionType === "scoops" ? ScoopOption : null;
+  const ItemComponent = optionType === "scoops" ? ScoopOption : ToppingOption;
 
   const optionItems = items.map((item: IceItemProps) => (
     <ItemComponent
