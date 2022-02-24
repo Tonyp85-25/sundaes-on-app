@@ -3,6 +3,13 @@ import { pricePerItem } from "../constants";
 
 const OrderDetails = createContext();
 
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(amount);
+}
 //create custom hook to check whether we are inside a provider
 
 export function useOrderDetails() {
@@ -24,25 +31,25 @@ function calculateSubtotal(orderType: orderType, optionsCounts: any) {
   return optionCount * pricePerItem[orderType];
 }
 
-export function useOrderDetailsProvider(props: any) {
+export function OrderDetailsProvider(props: any) {
   const [optionsCount, setOptionsCount] = useState({
     scoops: new Map<string, any>(),
     toppings: new Map<string, any>(),
   });
-
+  const zeroCurrency = formatCurrency(0);
   const [totals, setTotals] = useState({
-    scoops: 0,
-    toppings: 0,
-    grandTotal: 0,
+    scoops: zeroCurrency,
+    toppings: zeroCurrency,
+    grandTotal: zeroCurrency,
   });
 
   useEffect(() => {
     const scoopsSubtotal = calculateSubtotal("scoops", optionsCount);
     const toppingsSubtotal = calculateSubtotal("toppings", optionsCount);
     setTotals({
-      scoops: scoopsSubtotal,
-      toppings: toppingsSubtotal,
-      grandTotal: scoopsSubtotal + toppingsSubtotal,
+      scoops: formatCurrency(scoopsSubtotal),
+      toppings: formatCurrency(toppingsSubtotal),
+      grandTotal: formatCurrency(scoopsSubtotal + toppingsSubtotal),
     });
   }, [optionsCount]);
 

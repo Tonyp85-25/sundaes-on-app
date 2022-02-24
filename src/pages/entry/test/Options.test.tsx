@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "../../../test-utils/testing-library-utils";
 import { ReactElement } from "react";
 import { act } from "react-dom/test-utils";
+import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 import Options from "../Options";
 
 test("displays image for each scoop option from the server", async () => {
@@ -18,9 +19,8 @@ test("displays image for each scoop option from the server", async () => {
 });
 
 test("displays image for each topping option from the server", async () => {
-  act(() => {
-    render(<Options optionType="toppings" />);
-  });
+  render(<Options optionType="toppings" />, {});
+
   const toppingImages = (await screen.findAllByRole("img", {
     name: /topping$/i,
   })) as HTMLImageElement[];
