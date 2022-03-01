@@ -21,9 +21,7 @@ export default function Options(props: OptionsProps) {
     axios
       .get(`http://localhost:3030/${optionType}`)
       .then((response) => setItems(response.data))
-      .catch((error) => {
-        setError(true);
-      });
+      .catch((error) => setError(true));
   }, [optionType]);
 
   if (error) {

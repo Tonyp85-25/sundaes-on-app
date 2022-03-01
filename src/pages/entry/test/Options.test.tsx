@@ -5,9 +5,7 @@ import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 import Options from "../Options";
 
 test("displays image for each scoop option from the server", async () => {
-  act(() => {
-    render(<Options optionType="scoops" />);
-  });
+  render(<Options optionType="scoops" />);
 
   const scoopImages = (await screen.findAllByRole("img", {
     name: /scoop$/i,

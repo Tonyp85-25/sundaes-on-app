@@ -1,6 +1,9 @@
 import { Alert } from "react-bootstrap";
-
-export default function AlertBanner(props: any) {
+interface AlertBannerProps {
+  message?: string;
+  variant?: string;
+}
+export default function AlertBanner(props: AlertBannerProps) {
   const { message, variant } = props;
   const alertMessage =
     message || "An unexpected error occured. Please try again later";
