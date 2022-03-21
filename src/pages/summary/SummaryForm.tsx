@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Button, Form, OverlayTrigger, Popover } from "react-bootstrap";
+import { OrderPhase, OrderProps } from "../../types";
 
 const popover = () => (
   <Popover>
@@ -7,7 +8,8 @@ const popover = () => (
   </Popover>
 );
 
-const SummaryForm = () => {
+const SummaryForm = (props: OrderProps) => {
+  const { setOrderPhase } = props;
   const [disabled, setDisabled] = useState(true);
   const handleChange = () => setDisabled(!disabled);
 
@@ -20,12 +22,22 @@ const SummaryForm = () => {
     </>
   );
 
+  function handleSubmit(event: SyntheticEvent) {
+    event.preventDefault();
+    setOrderPhase(OrderPhase.completed);
+  }
+
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label={<Terms />} onChange={handleChange} />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={disabled}>
+      <Button
+        variant="primary"
+        type="submit"
+        disabled={disabled}
+        onClick={handleSubmit}
+      >
         Confirm order
       </Button>
     </Form>

@@ -3,19 +3,30 @@ import { pricePerItem } from "../constants";
 import { formatCurrency } from "../utilities";
 
 //create custom hook to check whether we are inside a provider
+interface IOrdersDetails {
+  optionsCount: {
+    scoops: Map<string, any>;
+    toppings: Map<string, any>;
+  };
+  totals: {
+    scoops: string;
+    toppings: string;
+    grandTotal: string;
+  };
+}
 const zeroCurrency = formatCurrency(0);
-// const defaultState = {
-//   optionsCount: {
-//     scoops: new Map<string, any>(),
-//     toppings: new Map<string, any>(),
-//   },
-//   totals: {
-//     scoops: zeroCurrency,
-//     toppings: zeroCurrency,
-//     grandTotal: zeroCurrency,
-//   },
-// };
-const OrderDetails = createContext();
+const defaultState = {
+  optionsCount: {
+    scoops: new Map<string, any>(),
+    toppings: new Map<string, any>(),
+  },
+  totals: {
+    scoops: zeroCurrency,
+    toppings: zeroCurrency,
+    grandTotal: zeroCurrency,
+  },
+};
+const OrderDetails = createContext(defaultState);
 export function useOrderDetails() {
   const context = useContext(OrderDetails);
   if (!context) {
