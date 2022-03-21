@@ -1,4 +1,4 @@
-import { SetStateAction, Fu, FunctionComponent } from "react";
+import { SetStateAction, FunctionComponent } from "react";
 
 export enum OrderPhase {
   inProgress,

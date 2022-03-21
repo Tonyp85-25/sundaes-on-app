@@ -14,6 +14,13 @@ interface IOrdersDetails {
     grandTotal: string;
   };
 }
+
+type OrderDetailsHook = [
+  IOrdersDetails,
+  (itemName: string, newItemCount: string, optionType: orderType) => void,
+  () => void
+];
+
 const zeroCurrency = formatCurrency(0);
 const defaultState = {
   optionsCount: {
@@ -26,7 +33,7 @@ const defaultState = {
     grandTotal: zeroCurrency,
   },
 };
-const OrderDetails = createContext(defaultState);
+const OrderDetails = createContext<IOrdersDetails>(defaultState);
 export function useOrderDetails() {
   const context = useContext(OrderDetails);
   if (!context) {
