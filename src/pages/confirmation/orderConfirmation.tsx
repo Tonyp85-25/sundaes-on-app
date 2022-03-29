@@ -8,6 +8,7 @@ export default function OrderConfirmation(props: OrderProps) {
   const { setOrderPhase } = props;
   const [, , resetOrder] = useOrderDetails();
   const [orderNumber, setOrderNumber] = useState<number | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     axios
@@ -15,9 +16,12 @@ export default function OrderConfirmation(props: OrderProps) {
       .then((response) => {
         setOrderNumber(response.data.orderNumber);
       })
-      .catch((error) => {});
+      .catch((error) => setError(true));
   }, []);
 
+  if (error) {
+    return <AlertBanner />;
+  }
   function handleClick() {
     resetOrder();
     setOrderPhase(OrderPhase.inProgress);
@@ -35,6 +39,6 @@ export default function OrderConfirmation(props: OrderProps) {
       </div>
     );
   } else {
-    return <div>Loading</div>;
+    return <div>Loading...</div>;
   }
 }

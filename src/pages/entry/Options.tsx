@@ -42,6 +42,9 @@ export default function Options(props: OptionsProps) {
       }
     />
   ));
+  // if (items.length === 0) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <>
       <h2>{title}</h2>

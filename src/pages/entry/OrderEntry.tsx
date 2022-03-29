@@ -8,7 +8,7 @@ export default function OrderEntry(props: OrderProps) {
   const { setOrderPhase } = props;
   const [orderDetails] = useOrderDetails();
   function handleClick(event: SyntheticEvent) {
-    event.preventDefault();
+    //event.preventDefault();
     setOrderPhase(OrderPhase.review);
   }
   return (
@@ -18,7 +18,7 @@ export default function OrderEntry(props: OrderProps) {
       <Options optionType="toppings" />
       <h2>Grand total: {orderDetails.totals.grandTotal}</h2>
       <Button variant="primary" onClick={handleClick}>
-        Order sundae
+        Order Sundae!
       </Button>
     </div>
   );

@@ -23,11 +23,11 @@ function App() {
     default:
   }
   return (
-    <Container>
-      <OrderDetailsProvider>
+    <OrderDetailsProvider>
+      <Container>
         <Component setOrderPhase={setOrderPhase} />
-      </OrderDetailsProvider>
-    </Container>
+      </Container>
+    </OrderDetailsProvider>
   );
 }
 

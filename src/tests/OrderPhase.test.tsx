@@ -6,6 +6,7 @@ import App from "../App";
 test("Order phases for happy path", async () => {
   //render App
   render(<App />);
+
   //add ice cream scoops and toppings
   const vanillaInput = await screen.findByRole("spinbutton", {
     name: "Vanilla",
@@ -16,12 +17,14 @@ test("Order phases for happy path", async () => {
   const chocolateInput = await screen.findByRole("spinbutton", {
     name: "Chocolate",
   });
+
   userEvent.clear(chocolateInput);
   userEvent.type(chocolateInput, "2");
   const cherryCheckbox = await screen.findByRole("checkbox", {
     name: "Cherries",
   });
-  userEvent.clear(cherryCheckbox);
+
+  //userEvent.clear(cherryCheckbox);
   userEvent.click(cherryCheckbox);
 
   //find ice click order button
@@ -53,11 +56,16 @@ test("Order phases for happy path", async () => {
     name: /confirm order/i,
   });
   userEvent.click(confirmOrderButton);
+  const loading = screen.getByText(/loading/i);
+  expect(loading).toBeInTheDocument();
   // receive order number and click new order (async)
   const thankYouHeader = await screen.findByRole("heading", {
     name: /thank you/i,
   });
   expect(thankYouHeader).toBeInTheDocument();
+
+  const notLoading = screen.queryByText("loading");
+  expect(notLoading).not.toBeInTheDocument();
   //check total have been reset
   const orderNumber = await screen.findByText(/order number/i);
   expect(orderNumber).toBeInTheDocument();
