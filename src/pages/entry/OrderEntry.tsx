@@ -11,13 +11,14 @@ export default function OrderEntry(props: OrderProps) {
     //event.preventDefault();
     setOrderPhase(OrderPhase.review);
   }
+  let orderDisabled = orderDetails.totals.scoops === "$0.00";
   return (
     <div>
       <h1>Design your sundae!</h1>
       <Options optionType="scoops" />
       <Options optionType="toppings" />
       <h2>Grand total: {orderDetails.totals.grandTotal}</h2>
-      <Button variant="primary" onClick={handleClick}>
+      <Button variant="primary" onClick={handleClick} disabled={orderDisabled}>
         Order Sundae!
       </Button>
     </div>
