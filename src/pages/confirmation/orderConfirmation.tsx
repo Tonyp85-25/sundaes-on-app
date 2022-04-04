@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 import { OrderPhase, OrderProps } from "../../types";
+import AlertBanner from "../common/AlertBanner";
 
 export default function OrderConfirmation(props: OrderProps) {
   const { setOrderPhase } = props;
@@ -20,7 +21,12 @@ export default function OrderConfirmation(props: OrderProps) {
   }, []);
 
   if (error) {
-    return <AlertBanner />;
+    return (
+      <>
+        <AlertBanner />
+        <Button onClick={handleClick}>Create new order</Button>
+      </>
+    );
   }
   function handleClick() {
     resetOrder();
